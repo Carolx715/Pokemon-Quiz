@@ -188,11 +188,11 @@ public class MainPokeFrame {
 		expl.setForeground(Color.white);
 		scoreTotal.setForeground(Color.white);
 
-		// section2.setForeground(Color.white);
-		// section1.setForeground(Color.white);
-		// section3.setForeground(Color.white);
-		// quitBtn.setForeground(Color.white);
-		// resultsBtn.setForeground(Color.white);
+		section2.setForeground(Color.white);
+		section1.setForeground(Color.white);
+		section3.setForeground(Color.white);
+		quitBtn.setForeground(Color.white);
+		resultsBtn.setForeground(Color.white);
 
 		ButtonHandler onClick = new ButtonHandler();
 		section1.addActionListener(onClick);
