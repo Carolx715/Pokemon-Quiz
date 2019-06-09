@@ -42,7 +42,8 @@ public class MainPokeFrame {
 
 	static Font titleFont = new Font("Tahoma 11 Plain", Font.BOLD, 24);
 	static Font queFont = new Font("Tahoma 11 Plain", Font.BOLD, 18);
-	static Font otherFont = new Font("Tahoma 11 Plain", Font.PLAIN, 12);
+	static Font otherFont = new Font("Tahoma 11 Plain", Font.PLAIN, 15);
+	static Font quitFont = new Font("Tahoma 11 Plain", Font.BOLD, 15);
 	static Font correctFont = new Font("Tahoma 11 Plain", Font.BOLD, 17);
 
 	// variables for multiple choice
@@ -105,9 +106,9 @@ public class MainPokeFrame {
 	static JPanel tPanel1, tPanel2, tPanel3;
 	static JPanel cardPanel = new JPanel(new CardLayout());
 
-	static JCheckBox q11, q12, q13, q14, q15;
-	static JCheckBox q21, q22, q23, q24, q25;
-	static JCheckBox q31, q32, q33, q34, q35;
+	static JCheckBox[] qCheckBox1 = new JCheckBox[5];
+	static JCheckBox[] qCheckBox2 = new JCheckBox[5];
+	static JCheckBox[] qCheckBox3 = new JCheckBox[5];
 
 	static JLabel q1, q2, q3;
 
@@ -115,7 +116,7 @@ public class MainPokeFrame {
 	static JLabel grassHM, dragonHM, venusaur, shaymin, physical, special;
 
 	// variables for Results
-	static JFrame frame;
+	static JFrame finalFrame;
 	static JLabel lblInstruct, lblFeedback, lblFinalScore;
 	static DefaultListModel listModel;
 	static JList questionList;
@@ -178,21 +179,22 @@ public class MainPokeFrame {
 
 		quitBtn = new JButton("Quit");
 		quitBtn.setEnabled(true);
-		quitBtn.setFont(otherFont);
+		quitBtn.setFont(quitFont);
 
 		resultsBtn = new JButton("See Results");
 		resultsBtn.setEnabled(false);
-		resultsBtn.setFont(otherFont);
+		resultsBtn.setFont(quitFont);
 
 		mainTitle.setForeground(Color.white);
 		expl.setForeground(Color.white);
 		scoreTotal.setForeground(Color.white);
 
-		section2.setForeground(Color.white);
-		section1.setForeground(Color.white);
-		section3.setForeground(Color.white);
-		quitBtn.setForeground(Color.white);
-		resultsBtn.setForeground(Color.white);
+		// comment these out on mac
+		// section2.setForeground(Color.white);
+		// section1.setForeground(Color.white);
+		// section3.setForeground(Color.white);
+		// quitBtn.setForeground(Color.white);
+		// resultsBtn.setForeground(Color.white);
 
 		ButtonHandler onClick = new ButtonHandler();
 		section1.addActionListener(onClick);
@@ -242,7 +244,7 @@ public class MainPokeFrame {
 				System.exit(0);
 			if (whichOne.equals("See Results")) {
 				lblFinalScore.setText("Final Score: " + score + "/30");
-				frame.setVisible(true);
+				finalFrame.setVisible(true);
 			}
 
 		}
@@ -257,8 +259,8 @@ public class MainPokeFrame {
 
 		JPanel mainTF = new JPanel(null);
 		mainTF.setBackground(Color.WHITE);
-		lblTitle = new JLabel("True & False");
-		lblTitle.setBounds(255, 27, 200, 50);
+		lblTitle = new JLabel("Pokémon Quiz: True & False");
+		lblTitle.setBounds(155, 20, 370, 50);
 		lblTitle.setForeground(Color.white);
 		lblTitle.setFont(titleFont);
 		imgLabel = new JLabel();
@@ -268,30 +270,30 @@ public class MainPokeFrame {
 		Container contain = TF.getContentPane();
 		((JPanel) contain).setOpaque(false);
 
+		scoreTF = new JLabel("Current Score: " + score, JLabel.CENTER);
+		scoreTF.setBounds(227, 70, 200, 50);
+		scoreTF.setForeground(Color.white);
+		scoreTF.setFont(queFont);
+
 		tf1 = new JButton("Question 1");
 		tf1.setFont(otherFont);
-		tf1.setBounds(230, 90, 200, 50);
+		tf1.setBounds(230, 135, 200, 50);
 		tf1.setOpaque(true);
 
 		tf2 = new JButton("Question 2");
 		tf2.setFont(otherFont);
-		tf2.setBounds(230, 160, 200, 50);
+		tf2.setBounds(230, 205, 200, 50);
 		tf2.setOpaque(true);
 
 		tf3 = new JButton("Question 3");
 		tf3.setFont(otherFont);
-		tf3.setBounds(230, 230, 200, 50);
+		tf3.setBounds(230, 275, 200, 50);
 		tf3.setOpaque(true);
 
 		quit1 = new JButton("Quit");
-		quit1.setFont(otherFont);
-		quit1.setBounds(230, 300, 200, 50);
+		quit1.setFont(quitFont);
+		quit1.setBounds(230, 345, 200, 50);
 		quit1.setOpaque(true);
-
-		scoreTF = new JLabel("Total Score: " + score, JLabel.CENTER);
-		scoreTF.setBounds(227, 360, 200, 50);
-		scoreTF.setForeground(Color.white);
-		scoreTF.setFont(queFont);
 
 		tf1.addActionListener(new TFPanelHandler());
 		tf1.setBackground(Color.pink);
@@ -303,10 +305,10 @@ public class MainPokeFrame {
 		quit1.setBackground(Color.pink);
 
 		mainTF.add(lblTitle);
+		mainTF.add(scoreTF);
 		mainTF.add(tf1);
 		mainTF.add(tf2);
 		mainTF.add(tf3);
-		mainTF.add(scoreTF);
 		mainTF.add(quit1);
 		mainTF.add(imgLabel);
 
@@ -365,9 +367,8 @@ public class MainPokeFrame {
 		subTF1.pack();
 		subTF1.setSize(600, 460);
 		subTF1.setVisible(false);
-		//
-		// question2
 
+		// question2
 		subTF2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		ImageIcon img2 = new ImageIcon("LifeOrb.png");
 
@@ -402,7 +403,6 @@ public class MainPokeFrame {
 		TFScoreHandler2 c3 = new TFScoreHandler2();
 		b2.addActionListener(c3);
 
-		//
 		submainTF2.add(tfq2);
 		submainTF2.add(true2);
 		submainTF2.add(false2);
@@ -455,7 +455,6 @@ public class MainPokeFrame {
 		TFScoreHandler3 click3 = new TFScoreHandler3();
 		b3.addActionListener(click3);
 
-		//
 		submainTF3.add(tfq3);
 
 		submainTF3.add(true3);
@@ -523,9 +522,6 @@ public class MainPokeFrame {
 
 			} else if (w1.equals("Quit"))
 				subTF1.setVisible(false);
-			// make it so user is unable to go back to that question
-			// attempting
-			// tf1.setEnabled(false);
 		}
 	}
 
@@ -568,9 +564,6 @@ public class MainPokeFrame {
 				subTF2.setVisible(false);
 			}
 
-			// make it so user is unable to go back to that question
-			// attempting
-			// tf2.setEnabled(false);
 		}
 	}
 
@@ -611,9 +604,6 @@ public class MainPokeFrame {
 
 			} else if (w3.equals("Quit"))
 				subTF3.setVisible(false);
-			// make it so user is unable to go back to that question after
-			// attempting
-			// tf3.setEnabled(false);
 		}
 	}
 
@@ -622,7 +612,10 @@ public class MainPokeFrame {
 	/////////////////////////////////////////////////////////////////////////////////////////
 
 	private static void guiAppMC() {
-		ImageIcon choiceBand = new ImageIcon("Dream_Choice_Band_Sprite.png");
+		ImageIcon choiceBand = new ImageIcon("ChoiceBand.png");
+		ImageIcon wikiBerry = new ImageIcon("WikiBerry.png");
+		ImageIcon rocks = new ImageIcon("WeatherRocks.png");
+		ImageIcon special = new ImageIcon("Amnesia.png");
 
 		mainFrame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -630,10 +623,10 @@ public class MainPokeFrame {
 		mainPanel1.setLayout(new GridLayout(8, 1));
 		mainPanel1.setBackground(Color.white);
 
-		mainTitle1 = new JLabel("Pokemon Quiz: Multiple Choice", JLabel.CENTER);
-		mainTitle1.setFont(queFont);
+		mainTitle1 = new JLabel("Pokémon Quiz: Multiple Choice", JLabel.CENTER);
+		mainTitle1.setFont(titleFont);
 
-		MCScore = new JLabel("Score: " + score, JLabel.CENTER);
+		MCScore = new JLabel("Current Score: " + score, JLabel.CENTER);
 		MCScore.setFont(otherFont);
 
 		que1 = new JButton("Question 1");
@@ -658,11 +651,12 @@ public class MainPokeFrame {
 		quitBtn1.setEnabled(true);
 		quitBtn1.setFont(otherFont);
 
-		que1.setForeground(Color.white);
-		que2.setForeground(Color.white);
-		que3.setForeground(Color.white);
-		que4.setForeground(Color.white);
-		quitBtn1.setForeground(Color.white);
+		// comment these out on mac
+		// que1.setForeground(Color.white);
+		// que2.setForeground(Color.white);
+		// que3.setForeground(Color.white);
+		// que4.setForeground(Color.white);
+		// quitBtn1.setForeground(Color.white);
 
 		ButtonHandler1 onClick = new ButtonHandler1();
 		que1.addActionListener(onClick);
@@ -687,7 +681,8 @@ public class MainPokeFrame {
 
 		mainFrame1.getContentPane().add(mainPanel1);
 		mainFrame1.pack();
-		mainFrame1.setSize(300, 250);
+		mainFrame1.setSize(400, 330);
+		mainFrame1.setLocation(460, 240);
 		mainFrame1.setVisible(false);
 
 		// First Question
@@ -982,7 +977,7 @@ public class MainPokeFrame {
 					SATPScore.setText("Current Score: " + score);
 					scoreTotal.setText("Total Score: " + score);
 				}
-				for (int i = 0; i < 4; i++)
+				for (int i = 0; i < q1m.length; i++)
 					q1m[i].setEnabled(false);
 				numAnswered++;
 				mul1Frame.setVisible(false);
@@ -1016,7 +1011,7 @@ public class MainPokeFrame {
 					SATPScore.setText("Current Score: " + score);
 					scoreTotal.setText("Total Score: " + score);
 				}
-				for (int i = 0; i < 4; i++)
+				for (int i = 0; i < q2m.length; i++)
 					q2m[i].setEnabled(false);
 				numAnswered++;
 				mul2Frame.setVisible(false);
@@ -1052,7 +1047,7 @@ public class MainPokeFrame {
 					SATPScore.setText("Current Score: " + score);
 					scoreTotal.setText("Total Score: " + score);
 				}
-				for (int i = 0; i < 4; i++)
+				for (int i = 0; i < q3m.length; i++)
 					q3m[i].setEnabled(false);
 				numAnswered++;
 				mul3Frame.setVisible(false);
@@ -1089,7 +1084,7 @@ public class MainPokeFrame {
 					SATPScore.setText("Current Score: " + score);
 					scoreTotal.setText("Total Score: " + score);
 				}
-				for (int i = 0; i < 4; i++)
+				for (int i = 0; i < q4m.length; i++)
 					q4m[i].setEnabled(false);
 				numAnswered++;
 				mul4Frame.setVisible(false);
@@ -1129,7 +1124,7 @@ public class MainPokeFrame {
 		tPanel3 = new JPanel(new GridLayout(1, 3));
 
 		// objects for mainPanel
-		SATP = new JLabel("Pokémon Trivia - Select All That Apply", JLabel.CENTER);
+		SATP = new JLabel("Pokémon Quiz - Select All That Apply", JLabel.CENTER);
 		SATP.setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 20));
 		SATP.setBackground(Color.white);
 		SATP.setOpaque(true);
@@ -1174,39 +1169,26 @@ public class MainPokeFrame {
 		q1.setBackground(fairy);
 		q1.setOpaque(true);
 
-		q11 = new JCheckBox("Surf", false);
-		q11.setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 15));
-		q11.setBackground(fairy);
-		q11.setOpaque(true);
+		qCheckBox1[0] = new JCheckBox("Surf", false);
+		qCheckBox1[1] = new JCheckBox("Rock Smash", false);
+		qCheckBox1[2] = new JCheckBox("Volt Switch", false);
+		qCheckBox1[3] = new JCheckBox("Rock Climb", false);
+		qCheckBox1[4] = new JCheckBox("Defog", false);
 
-		q12 = new JCheckBox("Rock Smash", false);
-		q12.setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 15));
-		q12.setBackground(fairy);
-		q12.setOpaque(true);
-
-		q13 = new JCheckBox("Volt Switch", false);
-		q13.setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 15));
-		q13.setBackground(fairy);
-		q13.setOpaque(true);
-
-		q14 = new JCheckBox("Rock Climb", false);
-		q14.setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 15));
-		q14.setBackground(fairy);
-		q14.setOpaque(true);
-
-		q15 = new JCheckBox("Defog", false);
-		q15.setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 15));
-		q15.setBackground(fairy);
-		q15.setOpaque(true);
+		for (int i = 0; i < qCheckBox1.length; i++) {
+			qCheckBox1[i].setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 15));
+			qCheckBox1[i].setBackground(fairy);
+			qCheckBox1[i].setOpaque(true);
+		}
 
 		for (int i = 0; i < submit.length; i++) {
 			submit[i] = new JButton("Submit");
 			submit[i].setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 30));
 			submit[i].addActionListener(new QuestionHandler());
+			submit[i].setOpaque(true);
 
 		}
 		submit[0].setBackground(fairy);
-		submit[0].setOpaque(true);
 
 		// images for q1Panel
 		hm1 = new ImageIcon("grassTM.png");
@@ -1222,11 +1204,10 @@ public class MainPokeFrame {
 
 		q1Panel.add(tPanel1, BorderLayout.PAGE_START);
 
-		qPanel1.add(q11);
-		qPanel1.add(q12);
-		qPanel1.add(q13);
-		qPanel1.add(q14);
-		qPanel1.add(q15);
+		// add things to qPanel1
+		for (int i = 0; i < qCheckBox1.length; i++)
+			qPanel1.add(qCheckBox1[i]);
+
 		qPanel1.setBackground(fairy);
 		qPanel1.setOpaque(true);
 		q1Panel.add(qPanel1, BorderLayout.CENTER);
@@ -1242,33 +1223,19 @@ public class MainPokeFrame {
 		q2.setBackground(bug);
 		q2.setOpaque(true);
 
-		q21 = new JCheckBox("Pineco", false);
-		q21.setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 15));
-		q21.setBackground(bug);
-		q21.setOpaque(true);
+		qCheckBox2[0] = new JCheckBox("Pineco", false);
+		qCheckBox2[1] = new JCheckBox("Caterpie", false);
+		qCheckBox2[2] = new JCheckBox("Burmy - Plant Cloak", false);
+		qCheckBox2[3] = new JCheckBox("Nincada", false);
+		qCheckBox2[4] = new JCheckBox("Florges", false);
 
-		q22 = new JCheckBox("Caterpie", false);
-		q22.setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 15));
-		q22.setBackground(bug);
-		q22.setOpaque(true);
-
-		q23 = new JCheckBox("Burmy - Plant Cloak", false);
-		q23.setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 15));
-		q23.setBackground(bug);
-		q23.setOpaque(true);
-
-		q24 = new JCheckBox("Nincada", false);
-		q24.setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 15));
-		q24.setBackground(bug);
-		q24.setOpaque(true);
-
-		q25 = new JCheckBox("Florges", false);
-		q25.setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 15));
-		q25.setBackground(bug);
-		q25.setOpaque(true);
+		for (int i = 0; i < qCheckBox2.length; i++) {
+			qCheckBox2[i].setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 15));
+			qCheckBox2[i].setBackground(bug);
+			qCheckBox2[i].setOpaque(true);
+		}
 
 		submit[1].setBackground(bug);
-		submit[1].setOpaque(true);
 
 		// images for q2Panel
 		grass1 = new ImageIcon("venusaur4.png");
@@ -1290,51 +1257,35 @@ public class MainPokeFrame {
 		q2Panel.setBackground(bug);
 		q2Panel.setOpaque(true);
 
-		qPanel2.add(q21);
-		qPanel2.add(q22);
-		qPanel2.add(q23);
-		qPanel2.add(q24);
-		qPanel2.add(q25);
+		// add things to qPanel2
+		for (int i = 0; i < qCheckBox2.length; i++)
+			qPanel2.add(qCheckBox2[i]);
+
 		qPanel2.setBackground(bug);
 		qPanel2.setOpaque(true);
 		q2Panel.add(qPanel2, BorderLayout.CENTER);
 		q2Panel.add(submit[1], BorderLayout.PAGE_END);
 
 		//////////////////////////////////////////////////////////
-
 		// objects for q3Panel
 		q3 = new JLabel("<html>3.\tSelect all the moves that are Z-Moves from the following list:</html>");
 		q3.setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 20));
 		q3.setBackground(flying);
 		q3.setOpaque(true);
 
-		q31 = new JCheckBox("Twinkle Tackle", false);
-		q31.setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 15));
-		q31.setBackground(flying);
-		q31.setOpaque(true);
+		qCheckBox3[0] = new JCheckBox("Twinkle Tackle", false);
+		qCheckBox3[1] = new JCheckBox("Let’s Snuggle Forever", false);
+		qCheckBox3[2] = new JCheckBox("Leaf Storm", false);
+		qCheckBox3[3] = new JCheckBox("Extreme Speed", false);
+		qCheckBox3[4] = new JCheckBox("All Out Pummelling", false);
 
-		q32 = new JCheckBox("Let’s Snuggle Forever", false);
-		q32.setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 15));
-		q32.setBackground(flying);
-		q32.setOpaque(true);
-
-		q33 = new JCheckBox("Leaf Storm", false);
-		q33.setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 15));
-		q33.setBackground(flying);
-		q33.setOpaque(true);
-
-		q34 = new JCheckBox("Extreme Speed", false);
-		q34.setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 15));
-		q34.setBackground(flying);
-		q34.setOpaque(true);
-
-		q35 = new JCheckBox("All Out Pummelling", false);
-		q35.setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 15));
-		q35.setBackground(flying);
-		q35.setOpaque(true);
+		for (int i = 0; i < qCheckBox3.length; i++) {
+			qCheckBox3[i].setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 15));
+			qCheckBox3[i].setBackground(flying);
+			qCheckBox3[i].setOpaque(true);
+		}
 
 		submit[2].setBackground(flying);
-		submit[2].setOpaque(true);
 
 		// images for q3Panel
 		move1 = new ImageIcon("physical.png");
@@ -1354,11 +1305,10 @@ public class MainPokeFrame {
 
 		q3Panel.add(tPanel3, BorderLayout.PAGE_START);
 
-		qPanel3.add(q31);
-		qPanel3.add(q32);
-		qPanel3.add(q33);
-		qPanel3.add(q34);
-		qPanel3.add(q35);
+		// add things to qPanel3
+		for (int i = 0; i < qCheckBox3.length; i++)
+			qPanel3.add(qCheckBox3[i]);
+
 		qPanel3.setBackground(flying);
 		qPanel3.setOpaque(true);
 		q3Panel.add(qPanel3, BorderLayout.CENTER);
@@ -1376,7 +1326,7 @@ public class MainPokeFrame {
 		contentPane.add(cardPanel);
 		SATPFrame.pack();
 		SATPFrame.setSize(500, 400);
-		SATPFrame.setLocation(10, 10);
+		SATPFrame.setLocation(800, 10);
 		SATPFrame.setVisible(false);
 
 	}
@@ -1415,101 +1365,93 @@ public class MainPokeFrame {
 
 			if (whichOne.equals("Submit")) {
 				if (questionNumber == 1) {
-					if (!q11.isSelected()) {
+					if (!qCheckBox1[0].isSelected()) {
 						score++;
 						numCorrect++;
 					}
-					if (q12.isSelected()) {
+					if (qCheckBox1[1].isSelected()) {
 						score++;
 						numCorrect++;
 					}
-					if (!q13.isSelected()) {
+					if (!qCheckBox1[2].isSelected()) {
 						score++;
 						numCorrect++;
 					}
-					if (q14.isSelected()) {
+					if (qCheckBox1[3].isSelected()) {
 						score++;
 						numCorrect++;
 					}
-					if (!q15.isSelected()) {
+					if (!qCheckBox1[4].isSelected()) {
 						score++;
 						numCorrect++;
 					}
 					// for now I'm only setting the ones that should have been
 					// selected to green, maybe set the ones that should have
 					// been not selected to red later?
-					q12.setForeground(correct);
-					q12.setFont(new Font("Tahoma 11 Plain", Font.BOLD, 17));
-					q14.setForeground(correct);
-					q14.setFont(new Font("Tahoma 11 Plain", Font.BOLD, 17));
+					qCheckBox1[1].setForeground(correct);
+					qCheckBox1[1].setFont(new Font("Tahoma 11 Plain", Font.BOLD, 17));
+					qCheckBox1[3].setForeground(correct);
+					qCheckBox1[3].setFont(new Font("Tahoma 11 Plain", Font.BOLD, 17));
 
-					q11.setEnabled(false);
-					q12.setEnabled(false);
+					qCheckBox1[0].setEnabled(false);
+					qCheckBox1[1].setEnabled(false);
 
-					numAnswered++;
 					submit[0].setText("Return to Menu");
 
 				} else if (questionNumber == 2) {
-					if (!q21.isSelected()) {
+					if (!qCheckBox2[0].isSelected()) {
 						score++;
 						numCorrect++;
-						// q21.setBackground(correct);
 					}
-					if (!q22.isSelected()) {
+					if (!qCheckBox2[1].isSelected()) {
 						score++;
 						numCorrect++;
-						// q22.setBackground(correct);
 					}
-					if (!q23.isSelected()) {
+					if (!qCheckBox2[2].isSelected()) {
 						score++;
 						numCorrect++;
-						// q23.setBackground(correct);
 					}
-					if (!q24.isSelected()) {
+					if (!qCheckBox2[3].isSelected()) {
 						score++;
 						numCorrect++;
-						// q24.setBackground(correct);
 					}
-					if (!q25.isSelected()) {
+					if (!qCheckBox2[4].isSelected()) {
 						score++;
 						numCorrect++;
-						// q25.setBackground(correct);
 					}
 					// set ones that should have been selected to green (none)
 
-					numAnswered++;
 					submit[1].setText("Return to Menu");
 					openQ2.setEnabled(false);
 				} else if (questionNumber == 3) {
-					if (q31.isSelected()) {
+					if (qCheckBox3[0].isSelected()) {
 						score++;
 						numCorrect++;
 					}
-					if (q32.isSelected()) {
+					if (qCheckBox3[1].isSelected()) {
 						score++;
 						numCorrect++;
 					}
-					if (!q33.isSelected()) {
+					if (!qCheckBox3[2].isSelected()) {
 						score++;
 						numCorrect++;
 					}
-					if (!q34.isSelected()) {
+					if (!qCheckBox3[3].isSelected()) {
 						score++;
 						numCorrect++;
 					}
-					if (q35.isSelected()) {
+					if (qCheckBox3[4].isSelected()) {
 						score++;
 						numCorrect++;
 					}
 					// set ones that should have been selected to green
-					q31.setForeground(correct);
-					q31.setFont(new Font("Tahoma 11 Plain", Font.BOLD, 17));
-					q32.setForeground(correct);
-					q32.setFont(new Font("Tahoma 11 Plain", Font.BOLD, 17));
-					q35.setForeground(correct);
-					q35.setFont(new Font("Tahoma 11 Plain", Font.BOLD, 17));
+					qCheckBox3[0].setForeground(correct);
+					qCheckBox3[0].setFont(new Font("Tahoma 11 Plain", Font.BOLD, 17));
+					qCheckBox3[1].setForeground(correct);
+					qCheckBox3[1].setFont(new Font("Tahoma 11 Plain", Font.BOLD, 17));
+					qCheckBox3[4].setForeground(correct);
+					qCheckBox3[4].setFont(new Font("Tahoma 11 Plain", Font.BOLD, 17));
 
-					numAnswered++;
 					submit[2].setText("Return to Menu");
 				}
 				JOptionPane.showMessageDialog(null,
@@ -1519,6 +1461,7 @@ public class MainPokeFrame {
 				MCScore.setText("Current Score: " + score);
 				SATPScore.setText("Current Score: " + score);
 				scoreTotal.setText("Total Score: " + score);
+				numAnswered++;
 
 				// IF they have answered all 10
 				if (numAnswered >= 10)
@@ -1545,8 +1488,8 @@ public class MainPokeFrame {
 	private static void guiAppAns() {
 
 		// create and set up window
-		frame = new JFrame("JList");
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		finalFrame = new JFrame("JList");
+		finalFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		// create components
 		JPanel panel = new JPanel();
@@ -1587,11 +1530,11 @@ public class MainPokeFrame {
 		panel.add(btnCheck);
 
 		// add panel to frame and display window
-		Container contentPane = frame.getContentPane();
+		Container contentPane = finalFrame.getContentPane();
 		contentPane.add(panel);
-		frame.pack();
-		frame.setSize(300, 300);
-		frame.setVisible(false);
+		finalFrame.pack();
+		finalFrame.setSize(300, 300);
+		finalFrame.setVisible(false);
 	}
 
 	private static class ShowAnswers implements ActionListener {
@@ -1613,15 +1556,12 @@ public class MainPokeFrame {
 				} else if (question.equals("Multiple Choice Question #2")) {
 					JOptionPane.showMessageDialog(null,
 							"Q: What does the Wiki Berry do?\nA: Restores 1/2 HP at 1/4 HP or less; confuses if -SpA Nature.");
-
 				} else if (question.equals("Multiple Choice Question #3")) {
 					JOptionPane.showMessageDialog(null,
 							"Q: In what generation were the effects of the abilities Drizzle, Drought, \nSand Stream, and Snow Warning reduced to 5 turns?\nA: Gen VI.");
-
 				} else if (question.equals("Multiple Choice Question #4")) {
 					JOptionPane.showMessageDialog(null,
 							"Q: In what generation was the Special stat split into Sp. Atk and Sp. Def?\nA: Gen II");
-
 				} else if (question.equals("Select All That Apply Question #1")) {
 					JOptionPane.showMessageDialog(null,
 							"Q: What HMs became TMs in Generation V? Select all that apply.\nA: Rock Smash, Rock Climb");
@@ -1635,7 +1575,6 @@ public class MainPokeFrame {
 			} catch (NullPointerException x) {
 				JOptionPane.showMessageDialog(null, "Select a question to see the answer.");
 			}
-
 		}
 	}
 
@@ -1647,9 +1586,7 @@ public class MainPokeFrame {
 				guiAppMC();
 				guiAppSATP();
 				guiAppAns();
-
 			}
 		});
 	} // main method
-
 }
