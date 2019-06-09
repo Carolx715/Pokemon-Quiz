@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -33,6 +34,7 @@ public class MainPokeFrame {
 
 	static Color neutral = Color.decode("0xDDDDDD"), bug = Color.decode("0xB7CA2B"), fairy = Color.decode("#FAC9EF"),
 			flying = Color.decode("#DCBFF8"), correct = Color.decode("0x69B65A"), wrong = Color.decode("#DD5530");
+	static DecimalFormat d = new DecimalFormat("#0.02f");
 
 	static JPanel mainPanel;
 	static JPanel topPanel, btnPanel;
@@ -154,9 +156,9 @@ public class MainPokeFrame {
 		btnPanel = new JPanel();
 		btnPanel.setLayout(new GridLayout(1, 3));
 
-		mainTitle = new JLabel("Pokemon Trivia Quiz", JLabel.CENTER);
-		mainTitle.setFont(titleFont);
-
+		mainTitle = new JLabel("Pokémon Trivia Quiz", JLabel.CENTER);
+		// slightly larger title font:
+		mainTitle.setFont(new Font("Tahoma 11 Plain", Font.BOLD, 30));
 		expl = new JLabel(
 				"<html><body style='text-align: center'>The ultimate test of your Pokémon game knowledge!</html>",
 				JLabel.CENTER);
@@ -228,6 +230,7 @@ public class MainPokeFrame {
 		mainFrame.setSize(790, 665);
 		mainFrame.setVisible(true);
 		mainFrame.setLocation(270, 50);
+		mainFrame.setResizable(false);
 	}
 
 	private static class ButtonHandler implements ActionListener {
@@ -377,14 +380,14 @@ public class MainPokeFrame {
 
 		tfq2 = new JLabel("A Life Orb restores HP by 1/10th each turn at the cost of attack power.", JLabel.CENTER);
 		tfq2.setFont(queFont);
-		tfq2.setBounds(50, 1, 650, 150);
+		tfq2.setBounds(12, 1, 700, 150);
 		output2 = new JLabel("");
 		output2.setBounds(170, 350, 400, 50);
 		output2.setFont(otherFont);
 		imgQ2 = new JLabel();
 		imgQ2.setIcon(img2);
 		subTF2.getLayeredPane().add(imgQ2, new Integer(Integer.MIN_VALUE));
-		imgQ2.setBounds(0, 0, img2.getIconWidth(), img2.getIconHeight());
+		imgQ2.setBounds(20, 20, img2.getIconWidth() + 20, img2.getIconHeight() + 20);
 
 		true2 = new JRadioButton("True", false);
 		true2.setBounds(200, 120, 300, 50);
@@ -424,17 +427,17 @@ public class MainPokeFrame {
 
 		Font myFont = new Font("TimesRoman BOLDITALIC", Font.BOLD, 15);
 
-		tfq3 = new JLabel("Trick Room automatically swaps the items of your Pokemon with your opponents’.",
+		tfq3 = new JLabel("Trick Room automatically swaps the items of your Pokemon with \nyour opponents’.",
 				JLabel.CENTER);
 		tfq3.setFont(myFont);
-		tfq3.setBounds(20, 1, 650, 150);
+		tfq3.setBounds(10, 1, 670, 150);
 		output3 = new JLabel("");
 		output3.setBounds(170, 350, 400, 50);
 		output3.setFont(otherFont);
 		imgQ3 = new JLabel();
 		imgQ3.setIcon(img3);
 		subTF3.getLayeredPane().add(imgQ3, new Integer(Integer.MIN_VALUE));
-		imgQ3.setBounds(0, 0, img3.getIconWidth(), img3.getIconHeight());
+		imgQ3.setBounds(-40, 0, img3.getIconWidth() - 40, img3.getIconHeight());
 		Container contain3 = subTF3.getContentPane();
 		((JPanel) contain3).setOpaque(false);
 
@@ -465,7 +468,7 @@ public class MainPokeFrame {
 
 		subTF3.getContentPane().add(submainTF3);
 		subTF3.pack();
-		subTF3.setSize(660, 460);
+		subTF3.setSize(685, 430);
 		subTF3.setVisible(false);
 
 	}
@@ -627,7 +630,7 @@ public class MainPokeFrame {
 		mainTitle1.setFont(titleFont);
 
 		MCScore = new JLabel("Current Score: " + score, JLabel.CENTER);
-		MCScore.setFont(otherFont);
+		MCScore.setFont(queFont);
 
 		que1 = new JButton("Question 1");
 		que1.setEnabled(true);
@@ -649,7 +652,7 @@ public class MainPokeFrame {
 
 		quitBtn1 = new JButton("Quit");
 		quitBtn1.setEnabled(true);
-		quitBtn1.setFont(otherFont);
+		quitBtn1.setFont(quitFont);
 
 		// comment these out on mac
 		// que1.setForeground(Color.white);
@@ -681,7 +684,7 @@ public class MainPokeFrame {
 
 		mainFrame1.getContentPane().add(mainPanel1);
 		mainFrame1.pack();
-		mainFrame1.setSize(400, 330);
+		mainFrame1.setSize(450, 330);
 		mainFrame1.setLocation(460, 240);
 		mainFrame1.setVisible(false);
 
@@ -743,7 +746,7 @@ public class MainPokeFrame {
 
 		mul1Frame.getContentPane().add(mul1Panel);
 		mul1Frame.pack();
-		mul1Frame.setSize(500, 350);
+		mul1Frame.setSize(500, 400);
 		mul1Frame.setVisible(false);
 
 		// Second Question
@@ -804,7 +807,7 @@ public class MainPokeFrame {
 
 		mul2Frame.getContentPane().add(mul2Panel);
 		mul2Frame.pack();
-		mul2Frame.setSize(500, 350);
+		mul2Frame.setSize(500, 400);
 		mul2Frame.setVisible(false);
 
 		// Third Question
@@ -1129,7 +1132,7 @@ public class MainPokeFrame {
 		SATP.setBackground(Color.white);
 		SATP.setOpaque(true);
 		SATPScore = new JLabel("Current Score: " + score, JLabel.CENTER);
-		SATPScore.setFont(new Font("Tahoma 11 Plain", Font.PLAIN, 15));
+		SATPScore.setFont(queFont);
 		SATPScore.setBackground(Color.white);
 		SATPScore.setOpaque(true);
 		openQ1 = new JButton("Question 1 (5pts)");
@@ -1155,10 +1158,10 @@ public class MainPokeFrame {
 		exitSATP.addActionListener(new PanelHandler());
 
 		mainPanelCar.add(SATP);
+		mainPanelCar.add(SATPScore);
 		mainPanelCar.add(openQ1);
 		mainPanelCar.add(openQ2);
 		mainPanelCar.add(openQ3);
-		mainPanelCar.add(SATPScore);
 		mainPanelCar.add(exitSATP);
 
 		////////////////////////////////////////////////////////////////////
