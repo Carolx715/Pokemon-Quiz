@@ -50,7 +50,6 @@ public class MainPokeFrame {
 
 	// variables for multiple choice
 	static JLabel mainTitle1, MCScore, space2, que1Title, que2Title, que3Title, que4Title;
-	static JLabel image1, image2, image3, image4, image5, image6, image7, image8;
 	static JLabel ask1, ask2, ask3, ask3b, ask4; // za questions
 	static JButton que1, que2, que3, que4, quitBtn1; // buttons for the "main
 	// multiple choice panel
@@ -62,7 +61,6 @@ public class MainPokeFrame {
 	static JRadioButton q3m[] = new JRadioButton[7];
 	static JRadioButton q4m[] = new JRadioButton[7];
 	static JPanel mainPanel1, mul1Panel, mul2Panel, mul3Panel, mul4Panel;
-	static JPanel top1Panel, top2Panel, top3Panel, top4Panel;
 	static JFrame mainFrame1 = new JFrame("Main Panel"); //
 	static JFrame mul1Frame = new JFrame("Question 1"); //
 	static JFrame mul2Frame = new JFrame("Question 2"); // frames for the
@@ -71,7 +69,6 @@ public class MainPokeFrame {
 	// guiApps).
 	static JFrame mul3Frame = new JFrame("Question 3"); //
 	static JFrame mul4Frame = new JFrame("Question 4"); //
-	static ImageIcon choiceBand;
 	static String ans[] = new String[4]; // possible answers for question 1
 	static String ans2[] = new String[4]; // possible answers for question 2
 	static String ans3[] = new String[7]; // possible answers for question 3
@@ -123,6 +120,7 @@ public class MainPokeFrame {
 	static DefaultListModel listModel;
 	static JList questionList;
 	static JButton btnCheck;
+	static String[] ansList = new String[10];
 
 	/////////////////////////////////////////////////////////////////////////////////////////
 	// Main Menu GUI (all) //
@@ -491,8 +489,10 @@ public class MainPokeFrame {
 	private static class TFScoreHandler1 implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			String w1 = e.getActionCommand();
+
 			if (true1.isSelected() || false1.isSelected()) {
 				if (false1.isSelected() && w1.equals("Check")) {
+					ansList[0] = "False";
 					score += 1;
 					JOptionPane.showMessageDialog(null, "You got it! You have " + score + " points now.");
 					output1.setText("You got it. You have " + score + " points now.");
@@ -508,9 +508,10 @@ public class MainPokeFrame {
 					scoreTotal.setText("Total Score: " + score);
 
 				} else if (true1.isSelected() && w1.equals("Check")) {
+					ansList[0] = "True";
 					JOptionPane.showMessageDialog(null, "Incorrect! You have " + score + " points now.");
 					output1.setText("Incorrect! You have " + score + " points now.");
-					tf1.setBackground(wrong);
+					tf1.setBackground(Color.red);
 				}
 
 				subTF1.setVisible(false);
@@ -523,8 +524,11 @@ public class MainPokeFrame {
 				if (numAnswered >= 10)
 					resultsBtn.setEnabled(true);
 
-			} else if (w1.equals("Quit"))
+			} else if (w1.equals("Quit")) {
 				subTF1.setVisible(false);
+			} else {
+				JOptionPane.showMessageDialog(null, "You must select one option.");
+			}
 		}
 	}
 
@@ -533,6 +537,7 @@ public class MainPokeFrame {
 			String w2 = e.getActionCommand();
 			if (true2.isSelected() || false2.isSelected()) {
 				if (false2.isSelected() && w2.equals("Check")) {
+					ansList[1] = "False";
 					score += 1;
 					JOptionPane.showMessageDialog(null, "You got it! You have " + score + " points now.");
 					output2.setText("You got it. You have " + score + " points now.");
@@ -547,10 +552,11 @@ public class MainPokeFrame {
 					SATPScore.setText("Current Score: " + score);
 					scoreTotal.setText("Total Score: " + score);
 				} else if (true2.isSelected() && w2.equals("Check")) {
+					ansList[1] = "True";
 					JOptionPane.showMessageDialog(null, "Incorrect! You have " + score + " points now.");
 					output2.setText("Incorrect! You have " + score + " points now.");
 
-					tf2.setBackground(wrong);
+					tf2.setBackground(Color.red);
 				}
 
 				subTF2.setVisible(false);
@@ -565,6 +571,8 @@ public class MainPokeFrame {
 
 			} else if (w2.equals("Quit")) {
 				subTF2.setVisible(false);
+			} else {
+				JOptionPane.showMessageDialog(null, "You must select one option.");
 			}
 
 		}
@@ -575,6 +583,7 @@ public class MainPokeFrame {
 			String w3 = e.getActionCommand();
 			if (true3.isSelected() || false3.isSelected()) {
 				if (false3.isSelected() && w3.equals("Check")) {
+					ansList[2] = "False";
 					score += 1;
 					JOptionPane.showMessageDialog(null, "You got it! You have " + score + " points now.");
 					output3.setText("You got it. You have " + score + " points now.");
@@ -589,10 +598,11 @@ public class MainPokeFrame {
 					SATPScore.setText("Current Score: " + score);
 					scoreTotal.setText("Total Score: " + score);
 				} else if (true3.isSelected() && w3.equals("Check")) {
+					ansList[2] = "True";
 					JOptionPane.showMessageDialog(null, "Incorrect! You have " + score + " points now.");
 					output3.setText("You got it. You have " + score + " points now.");
 
-					tf3.setBackground(wrong);
+					tf3.setBackground(Color.red);
 
 				}
 				subTF3.setVisible(false);
@@ -605,8 +615,11 @@ public class MainPokeFrame {
 				if (numAnswered >= 10)
 					resultsBtn.setEnabled(true);
 
-			} else if (w3.equals("Quit"))
+			} else if (w3.equals("Quit")) {
 				subTF3.setVisible(false);
+			} else {
+				JOptionPane.showMessageDialog(null, "You must select one option.");
+			}
 		}
 	}
 
@@ -615,9 +628,7 @@ public class MainPokeFrame {
 	/////////////////////////////////////////////////////////////////////////////////////////
 
 	private static void guiAppMC() {
-		ImageIcon choiceBand = new ImageIcon("ChoiceBand.png");
-		ImageIcon wikiBerry = new ImageIcon("WikiBerry.png");
-		ImageIcon rocks = new ImageIcon("WeatherRocks.png");
+		ImageIcon rocks = new ImageIcon("WeatherRocks.jpg");
 		ImageIcon special = new ImageIcon("Amnesia.png");
 
 		mainFrame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -693,17 +704,8 @@ public class MainPokeFrame {
 		mul1Frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		mul1Panel = new JPanel();
-		mul1Panel.setLayout(new GridLayout(8, 1));
+		mul1Panel.setLayout(new GridLayout(7, 1));
 		mul1Panel.setBackground(Color.white);
-
-		top1Panel = new JPanel();
-		top1Panel.setLayout(new GridLayout(1, 3));
-		top1Panel.setBackground(Color.white);
-
-		image1 = new JLabel();
-		image1.setIcon(choiceBand);
-		image2 = new JLabel();
-		image2.setIcon(choiceBand);
 
 		que1Title = new JLabel("Question 1", JLabel.CENTER);
 		que1Title.setFont(titleFont);
@@ -711,10 +713,10 @@ public class MainPokeFrame {
 		ask1 = new JLabel("What does the Choice Band do?", JLabel.CENTER);
 		ask1.setFont(queFont);
 
-		ans[0] = ("Allows you to choose any move to use regardless of status, Abilities, etc");
+		ans[0] = ("<html>Allows you to choose any move to use regardless of status, Abilities, etc.</html>");
 		ans[1] = ("Boosts Attack by 1.5X but limits you to one move");
 		ans[2] = ("Extends weather effects to last 8 turns");
-		ans[3] = ("Boosts Special Defense by 1.5X but you can only use attacking moves");
+		ans[3] = ("<html>Boosts Special Defense by 1.5X but you can only use attacking moves</html>");
 
 		group1 = new ButtonGroup();
 		for (int i = 0; i < 4; i++) {
@@ -731,12 +733,7 @@ public class MainPokeFrame {
 		MCPanelHandler1 onClick2 = new MCPanelHandler1();
 		viewBtn1.addActionListener(onClick2);
 
-		top1Panel.add(image1);
-		top1Panel.add(que1Title);
-		top1Panel.add(image2);
-
 		mul1Panel.add(que1Title);
-		mul1Panel.add(top1Panel);
 		mul1Panel.add(ask1);
 
 		for (int i = 0; i < 4; i++)
@@ -754,17 +751,8 @@ public class MainPokeFrame {
 		mul2Frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		mul2Panel = new JPanel();
-		mul2Panel.setLayout(new GridLayout(8, 1));
+		mul2Panel.setLayout(new GridLayout(7, 1));
 		mul2Panel.setBackground(Color.white);
-
-		top2Panel = new JPanel();
-		top2Panel.setLayout(new GridLayout(1, 3));
-		top2Panel.setBackground(Color.white);
-
-		image3 = new JLabel();
-		image3.setIcon(choiceBand);
-		image4 = new JLabel();
-		image4.setIcon(choiceBand);
 
 		que2Title = new JLabel("Question 2", JLabel.CENTER);
 		que2Title.setFont(titleFont);
@@ -774,8 +762,8 @@ public class MainPokeFrame {
 
 		ans2[0] = ("Restores 1/4 HP at 1/2 HP or less");
 		ans2[1] = ("Raises Speed by 1 stage at 1/4 HP or less");
-		ans2[2] = ("Restores 1/2 HP at 1/4 HP or less; confuses if -SpA Nature");
-		ans2[3] = ("Restores 1/4 max HP after holder is hit by a supereffective move");
+		ans2[2] = ("<html>Restores 1/2 HP at 1/4 HP or less; confuses if Nature hinders Special Attack</html>");
+		ans2[3] = ("<html>Restores 1/4 max HP after holder is hit by a supereffective move</html>");
 
 		group2 = new ButtonGroup();
 		for (int i = 0; i < 4; i++) {
@@ -792,12 +780,7 @@ public class MainPokeFrame {
 		MCPanelHandler2 onClick3 = new MCPanelHandler2();
 		viewBtn2.addActionListener(onClick3);
 
-		top2Panel.add(image3);
-		top2Panel.add(que2Title);
-		top2Panel.add(image4);
-
 		mul2Panel.add(que2Title);
-		mul2Panel.add(top2Panel);
 		mul2Panel.add(ask2);
 
 		for (int i = 0; i < 4; i++)
@@ -815,17 +798,9 @@ public class MainPokeFrame {
 		mul3Frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		mul3Panel = new JPanel();
-		mul3Panel.setLayout(new GridLayout(12, 1));
+		mul3Panel.setLayout(new GridLayout(11, 1));
 		mul3Panel.setBackground(Color.white);
-
-		top3Panel = new JPanel();
-		top3Panel.setLayout(new GridLayout(1, 3));
-		top3Panel.setBackground(Color.white);
-
-		image5 = new JLabel();
-		image5.setIcon(choiceBand);
-		image6 = new JLabel();
-		image6.setIcon(choiceBand);
+		mul3Panel.setOpaque(false);
 
 		que3Title = new JLabel("Question 3", JLabel.CENTER);
 		que3Title.setFont(titleFont);
@@ -858,12 +833,7 @@ public class MainPokeFrame {
 		MCPanelHandler3 onClick4 = new MCPanelHandler3();
 		viewBtn3.addActionListener(onClick4);
 
-		top3Panel.add(image5);
-		top3Panel.add(que3Title);
-		top3Panel.add(image6);
-
 		mul3Panel.add(que3Title);
-		mul3Panel.add(top3Panel);
 		mul3Panel.add(ask3);
 		mul3Panel.add(ask3b);
 
@@ -877,22 +847,27 @@ public class MainPokeFrame {
 		mul3Frame.setSize(700, 550);
 		mul3Frame.setVisible(false);
 
+		JLabel weatherRocks = new JLabel();
+		weatherRocks.setIcon(rocks);
+		mul3Frame.getLayeredPane().add(weatherRocks, new Integer(Integer.MIN_VALUE));
+		weatherRocks.setBounds(200, 150, rocks.getIconWidth(), rocks.getIconHeight());
+		Container contain = mul3Frame.getContentPane();
+		((JPanel) contain).setOpaque(false);
+
 		// Fourth Question
+		JLabel amnesia = new JLabel();
+		amnesia.setIcon(special);
+		mul4Frame.getLayeredPane().add(amnesia, new Integer(Integer.MIN_VALUE));
+		amnesia.setBounds(300, 115, special.getIconWidth(), special.getIconHeight());
+		Container contain1 = mul4Frame.getContentPane();
+		((JPanel) contain1).setOpaque(false);
 
 		mul4Frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		mul4Panel = new JPanel();
-		mul4Panel.setLayout(new GridLayout(11, 1));
+		mul4Panel.setLayout(new GridLayout(10, 1));
 		mul4Panel.setBackground(Color.white);
-
-		top4Panel = new JPanel();
-		top4Panel.setLayout(new GridLayout(1, 3));
-		top4Panel.setBackground(Color.white);
-
-		image7 = new JLabel();
-		image7.setIcon(choiceBand);
-		image8 = new JLabel();
-		image8.setIcon(choiceBand);
+		mul4Panel.setOpaque(false);
 
 		que4Title = new JLabel("Question 4", JLabel.CENTER);
 		que4Title.setFont(titleFont);
@@ -923,12 +898,7 @@ public class MainPokeFrame {
 		MCPanelHandler4 onClick5 = new MCPanelHandler4();
 		viewBtn4.addActionListener(onClick5);
 
-		top4Panel.add(image8);
-		top4Panel.add(que4Title);
-		top4Panel.add(image8);
-
 		mul4Panel.add(que4Title);
-		mul4Panel.add(top4Panel);
 		mul4Panel.add(ask4);
 
 		for (int i = 0; i < 7; i++)
@@ -965,6 +935,10 @@ public class MainPokeFrame {
 
 			if (wO.equals("Check")
 					&& (q1m[0].isSelected() || q1m[1].isSelected() || q1m[2].isSelected() || q1m[3].isSelected())) {
+				// highlight correct answer
+				q1m[1].setFont(correctFont);
+				q1m[1].setForeground(correct);
+
 				if (wO.equals("Check") && (q1m[0].isSelected() || q1m[2].isSelected() || q1m[3].isSelected())) {
 					JOptionPane.showMessageDialog(null, "Incorrect. You have " + score + " points.");
 					que1.setBackground(Color.red);
@@ -972,6 +946,7 @@ public class MainPokeFrame {
 
 				else if (wO.equals("Check") && q1m[1].isSelected()) {
 					score = score + 3;
+
 					JOptionPane.showMessageDialog(null, "Correct. You have " + score + " points.");
 					que1.setBackground(Color.green);
 
@@ -979,19 +954,37 @@ public class MainPokeFrame {
 					MCScore.setText("Current Score: " + score);
 					SATPScore.setText("Current Score: " + score);
 					scoreTotal.setText("Total Score: " + score);
+
 				}
+
 				for (int i = 0; i < q1m.length; i++)
 					q1m[i].setEnabled(false);
 				numAnswered++;
-				mul1Frame.setVisible(false);
 
 				// IF they have answered all 10
 				if (numAnswered >= 10)
 					resultsBtn.setEnabled(true);
+
+				// add user answer to ansList
+				for (int i = 0; i < q1m.length; i++) {
+					if (q1m[i].isSelected())
+						ansList[3] = q1m[i].getText();
+
+					// override pesky html tags
+					if (q1m[0].isSelected())
+						ansList[3] = "Allows you to choose any move to use regardless of status, Abilities, etc.";
+					else if (q1m[3].isSelected())
+						ansList[3] = "Boosts Special Defense by 1.5X but you can only use attacking moves";
+				}
+
 				viewBtn1.setText("Quit");
-			} else {
 				mul1Frame.setVisible(false);
+			} else if (wO.equals("Quit")) {
+				mul1Frame.setVisible(false);
+			} else {
+				JOptionPane.showMessageDialog(null, "You must select one option.");
 			}
+
 		}
 	}
 
@@ -1001,11 +994,16 @@ public class MainPokeFrame {
 
 			if (wO.equals("Check")
 					&& (q2m[0].isSelected() || q2m[1].isSelected() || q2m[2].isSelected() || q2m[3].isSelected())) {
+				// highlight correct answer
+				q2m[2].setFont(correctFont);
+				q2m[2].setForeground(correct);
+
 				if (wO.equals("Check") && (q2m[0].isSelected() || q2m[1].isSelected() || q2m[3].isSelected())) {
 					JOptionPane.showMessageDialog(null, "Incorrect. You have " + score + " points.");
 					que2.setBackground(Color.red);
 				} else if (wO.equals("Check") && q2m[2].isSelected()) {
 					score = score + 3;
+
 					JOptionPane.showMessageDialog(null, "Correct. You have " + score + " points.");
 					que2.setBackground(Color.green);
 
@@ -1013,18 +1011,34 @@ public class MainPokeFrame {
 					MCScore.setText("Current Score: " + score);
 					SATPScore.setText("Current Score: " + score);
 					scoreTotal.setText("Total Score: " + score);
+
 				}
 				for (int i = 0; i < q2m.length; i++)
 					q2m[i].setEnabled(false);
+
+				// add user answer to ansList
+				for (int i = 0; i < q2m.length; i++) {
+					if (q2m[i].isSelected())
+						ansList[4] = q2m[i].getText();
+
+					// override pesky html tags
+					if (q2m[2].isSelected())
+						ansList[4] = "Restores 1/2 HP at 1/4 HP or less; confuses if Nature hinders Special Attack";
+					else if (q2m[3].isSelected())
+						ansList[4] = "Restores 1/4 HP after holder is hit by a supereffective move";
+				}
+
 				numAnswered++;
-				mul2Frame.setVisible(false);
 
 				// IF they have answered all 10
 				if (numAnswered >= 10)
 					resultsBtn.setEnabled(true);
-				viewBtn2.setText("Quit");
-			} else {
 				mul2Frame.setVisible(false);
+				viewBtn2.setText("Quit");
+			} else if (wO.equals("Quit")) {
+				mul2Frame.setVisible(false);
+			} else {
+				JOptionPane.showMessageDialog(null, "You must select one option.");
 			}
 		}
 
@@ -1035,13 +1049,18 @@ public class MainPokeFrame {
 			String wO = e.getActionCommand();
 
 			if (wO.equals("Check") && (q3m[0].isSelected() || q3m[1].isSelected() || q3m[2].isSelected()
-					|| q3m[3].isSelected() || q3m[4].isSelected() || q3m[5].isSelected())) {
+					|| q3m[3].isSelected() || q3m[4].isSelected() || q3m[5].isSelected() || q3m[6].isSelected())) {
+				// highlight correct answer
+				q3m[5].setFont(correctFont);
+				q3m[5].setForeground(correct);
+
 				if (wO.equals("Check") && (q3m[0].isSelected() || q3m[1].isSelected() || q3m[2].isSelected()
 						|| q3m[3].isSelected() || q3m[4].isSelected() || q3m[6].isSelected())) {
 					JOptionPane.showMessageDialog(null, "Incorrect. You have " + score + " points.");
 					que3.setBackground(Color.red);
 				} else if (wO.equals("Check") && q3m[5].isSelected()) {
 					score = score + 3;
+
 					JOptionPane.showMessageDialog(null, "Correct. You have " + score + " points.");
 					que3.setBackground(Color.green);
 
@@ -1049,18 +1068,27 @@ public class MainPokeFrame {
 					MCScore.setText("Current Score: " + score);
 					SATPScore.setText("Current Score: " + score);
 					scoreTotal.setText("Total Score: " + score);
+
 				}
 				for (int i = 0; i < q3m.length; i++)
 					q3m[i].setEnabled(false);
+
+				// add user answer to ansList
+				for (int i = 0; i < q3m.length; i++)
+					if (q3m[i].isSelected())
+						ansList[5] = q3m[i].getText();
+
 				numAnswered++;
-				mul3Frame.setVisible(false);
 
 				// IF they have answered all 10
 				if (numAnswered >= 10)
 					resultsBtn.setEnabled(true);
 				viewBtn3.setText("Quit");
-			} else {
 				mul3Frame.setVisible(false);
+			} else if (wO.equals("Quit")) {
+				mul3Frame.setVisible(false);
+			} else {
+				JOptionPane.showMessageDialog(null, "You must select one option.");
 			}
 		}
 	}
@@ -1070,7 +1098,11 @@ public class MainPokeFrame {
 			String wO = e.getActionCommand();
 
 			if (wO.equals("Check") && (q4m[0].isSelected() || q4m[1].isSelected() || q4m[2].isSelected()
-					|| q4m[3].isSelected() || q4m[4].isSelected() || q4m[5].isSelected())) {
+					|| q4m[3].isSelected() || q4m[4].isSelected() || q4m[5].isSelected() || q4m[6].isSelected())) {
+				// highlight correct answer
+				q4m[1].setFont(correctFont);
+				q4m[1].setForeground(correct);
+
 				if (wO.equals("Check") && (q4m[0].isSelected() || q4m[2].isSelected() || q4m[3].isSelected()
 						|| q4m[4].isSelected() || q4m[5].isSelected() || q4m[6].isSelected())) {
 					JOptionPane.showMessageDialog(null, "Incorrect. You have " + score + " points.");
@@ -1086,18 +1118,27 @@ public class MainPokeFrame {
 					MCScore.setText("Current Score: " + score);
 					SATPScore.setText("Current Score: " + score);
 					scoreTotal.setText("Total Score: " + score);
+
 				}
 				for (int i = 0; i < q4m.length; i++)
 					q4m[i].setEnabled(false);
+
+				// add user answer to ansList
+				for (int i = 0; i < q4m.length; i++)
+					if (q4m[i].isSelected())
+						ansList[6] = q4m[i].getText();
+
 				numAnswered++;
-				mul4Frame.setVisible(false);
 
 				// IF they have answered all 10
 				if (numAnswered >= 10)
 					resultsBtn.setEnabled(true);
-				viewBtn4.setText("Quit");
-			} else {
 				mul4Frame.setVisible(false);
+				viewBtn4.setText("Quit");
+			} else if (wO.equals("Quit")) {
+				mul4Frame.setVisible(false);
+			} else {
+				JOptionPane.showMessageDialog(null, "You must select one option.");
 			}
 		}
 	}
@@ -1139,7 +1180,7 @@ public class MainPokeFrame {
 		openQ2 = new JButton("Question 2 (5pts)");
 		openQ3 = new JButton("Question 3 (5pts)");
 		exitSATP = new JButton("Quit");
-		exitSATP.setFont(new Font("Arial", Font.BOLD, 15));
+		exitSATP.setFont(quitFont);
 
 		openQ1.setBackground(neutral);
 		openQ1.setOpaque(true);
@@ -1342,15 +1383,15 @@ public class MainPokeFrame {
 			// contentPane.remove(mainPanel);
 			mainPanelCar.setVisible(false);
 
-			if (whichOne.equals("Question 1 (5pts)")) {
+			if (whichOne.equals("Question 1 (5pts)") || whichOne.equals("Question 1 (Submitted)")) {
 				q1Panel.setVisible(true);
 				questionNumber = 1;
 
-			} else if (whichOne.equals("Question 2 (5pts)")) {
+			} else if (whichOne.equals("Question 2 (5pts)") || whichOne.equals("Question 2 (Submitted)")) {
 				q2Panel.setVisible(true);
 				questionNumber = 2;
 
-			} else if (whichOne.equals("Question 3 (5pts)")) {
+			} else if (whichOne.equals("Question 3 (5pts)") || whichOne.equals("Question 3 (Submitted)")) {
 				q3Panel.setVisible(true);
 				questionNumber = 3;
 			} else if (whichOne.equals("Quit")) {
@@ -1396,10 +1437,24 @@ public class MainPokeFrame {
 					qCheckBox1[3].setForeground(correct);
 					qCheckBox1[3].setFont(new Font("Tahoma 11 Plain", Font.BOLD, 17));
 
-					qCheckBox1[0].setEnabled(false);
-					qCheckBox1[1].setEnabled(false);
-
 					submit[0].setText("Return to Menu");
+					openQ1.setText("Question 1 (Submitted)");
+
+					// add user answer to ansList (with concatenation this time)
+					String temp = "";
+					for (int i = 0; i < qCheckBox1.length; i++) {
+						if (qCheckBox1[i].isSelected()) {
+							if (temp.equals(""))
+								temp = temp + qCheckBox1[i].getText();
+							else
+								temp = temp + ", " + qCheckBox1[i].getText();
+						}
+					}
+					// if user selected nothing
+					if (temp.equals(""))
+						ansList[7] = "None of the given answers";
+					else
+						ansList[7] = temp;
 
 				} else if (questionNumber == 2) {
 					if (!qCheckBox2[0].isSelected()) {
@@ -1425,7 +1480,23 @@ public class MainPokeFrame {
 					// set ones that should have been selected to green (none)
 
 					submit[1].setText("Return to Menu");
-					openQ2.setEnabled(false);
+					openQ2.setText("Question 2 (Submitted)");
+
+					// add user answer to ansList (with concatenation this time)
+					String temp = "";
+					for (int i = 0; i < qCheckBox2.length; i++) {
+						if (qCheckBox2[i].isSelected()) {
+							if (temp.equals(""))
+								temp = temp + qCheckBox2[i].getText();
+							else
+								temp = temp + ", " + qCheckBox2[i].getText();
+						}
+					}
+					// if user selected nothing
+					if (temp.equals(""))
+						ansList[8] = "None of the given answers";
+					else
+						ansList[8] = temp;
 				} else if (questionNumber == 3) {
 					if (qCheckBox3[0].isSelected()) {
 						score++;
@@ -1456,6 +1527,23 @@ public class MainPokeFrame {
 					qCheckBox3[4].setFont(new Font("Tahoma 11 Plain", Font.BOLD, 17));
 
 					submit[2].setText("Return to Menu");
+					openQ3.setText("Question 3 (Submitted)");
+
+					// add user answer to ansList (with concatenation this time)
+					String temp = "";
+					for (int i = 0; i < qCheckBox3.length; i++) {
+						if (qCheckBox3[i].isSelected()) {
+							if (temp.equals(""))
+								temp = temp + qCheckBox3[i].getText();
+							else
+								temp = temp + ", " + qCheckBox3[i].getText();
+						}
+					}
+					// if user selected nothing
+					if (temp.equals(""))
+						ansList[9] = "None of the given answers";
+					else
+						ansList[9] = temp;
 				}
 				JOptionPane.showMessageDialog(null,
 						"You got " + numCorrect + " correct out of 5\nCurrent score: " + score);
@@ -1469,6 +1557,19 @@ public class MainPokeFrame {
 				// IF they have answered all 10
 				if (numAnswered >= 10)
 					resultsBtn.setEnabled(true);
+
+				// now set the checkboxes to disabled because I want them to see
+				// it be green for a little bit
+				if (questionNumber == 1) {
+					for (int i = 0; i < 5; i++)
+						qCheckBox1[i].setEnabled(false);
+				} else if (questionNumber == 2) {
+					for (int i = 0; i < 5; i++)
+						qCheckBox2[i].setEnabled(false);
+				} else if (questionNumber == 3) {
+					for (int i = 0; i < 5; i++)
+						qCheckBox3[i].setEnabled(false);
+				}
 
 			} else if (whichOne.equals("Return to Menu")) {
 				if (questionNumber == 1)
@@ -1491,7 +1592,7 @@ public class MainPokeFrame {
 	private static void guiAppAns() {
 
 		// create and set up window
-		finalFrame = new JFrame("JList");
+		finalFrame = new JFrame("Answers");
 		finalFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		// create components
@@ -1518,6 +1619,7 @@ public class MainPokeFrame {
 		btnCheck = new JButton("Show Answer");
 
 		questionList = new JList(listModel);
+		questionList.setFont(otherFont);
 		questionList.setVisibleRowCount(5);
 		questionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -1546,34 +1648,43 @@ public class MainPokeFrame {
 
 			try {
 				if (question.equals("TF Question #1"))
-					JOptionPane.showMessageDialog(null, "Q: A Timid nature is the best nature on a Machamp.\nA: False");
+					JOptionPane.showMessageDialog(null,
+							"Q: A Timid nature is the best nature on a Machamp.\nYour Answer: " + ansList[0]
+									+ "\nA: False");
 				else if (question.equals("TF Question #2"))
 					JOptionPane.showMessageDialog(null,
-							"Q: A Life Orb restores HP by 1/10th each turn at the cost of attack power.\nA: False");
+							"Q: A Life Orb restores HP by 1/10th each turn at the cost of attack power.\nYour Answer: "
+									+ ansList[1] + "\nA: False");
 				else if (question.equals("TF Question #3"))
 					JOptionPane.showMessageDialog(null,
-							"Q: Trick Room swaps the items of your Pokemon with your opponents’.\nA: False");
+							"Q: Trick Room swaps the items of your Pokemon with your opponents’.\nYour Answer: "
+									+ ansList[2] + "\nA: False");
 				else if (question.equals("Multiple Choice Question #1")) {
-					JOptionPane.showMessageDialog(null,
-							"Q: What does the Choice Band do?\nA: Boosts Attack by 1.5X but limits you to one move.");
+					JOptionPane.showMessageDialog(null, "Q: What does the Choice Band do?\nYour Answer: " + ansList[3]
+							+ "\nA: Boosts Attack by 1.5X but limits you to one move");
 				} else if (question.equals("Multiple Choice Question #2")) {
-					JOptionPane.showMessageDialog(null,
-							"Q: What does the Wiki Berry do?\nA: Restores 1/2 HP at 1/4 HP or less; confuses if -SpA Nature.");
+					JOptionPane.showMessageDialog(null, "Q: What does the Wiki Berry do?\nYour Answer: " + ansList[4]
+							+ "\nA: Restores 1/2 HP at 1/4 HP or less; confuses if Nature hinders Special Attack");
 				} else if (question.equals("Multiple Choice Question #3")) {
 					JOptionPane.showMessageDialog(null,
-							"Q: In what generation were the effects of the abilities Drizzle, Drought, \nSand Stream, and Snow Warning reduced to 5 turns?\nA: Gen VI.");
+							"Q: In what generation were the effects of the abilities Drizzle, Drought, \nSand Stream, and Snow Warning reduced to 5 turns?\nYour Answer: "
+									+ ansList[5] + "\nA: Gen VI");
 				} else if (question.equals("Multiple Choice Question #4")) {
 					JOptionPane.showMessageDialog(null,
-							"Q: In what generation was the Special stat split into Sp. Atk and Sp. Def?\nA: Gen II");
+							"Q: In what generation was the Special stat split into Sp. Atk and Sp. Def?\nYour Answer: "
+									+ ansList[6] + "\nA: Gen II");
 				} else if (question.equals("Select All That Apply Question #1")) {
 					JOptionPane.showMessageDialog(null,
-							"Q: What HMs became TMs in Generation V? Select all that apply.\nA: Rock Smash, Rock Climb");
+							"Q: What HMs became TMs in Generation V? Select all that apply.\nYour Answer: " + ansList[7]
+									+ "\nA: Rock Smash, Rock Climb");
 				} else if (question.equals("Select All That Apply Question #2")) {
 					JOptionPane.showMessageDialog(null,
-							"Q: Select all the grass types from the following list:\nA: None of the given answers");
+							"Q: Select all the grass types from the following list:\nYour Answer: " + ansList[8]
+									+ "\nA: None of the given answers");
 				} else if (question.equals("Select All That Apply Question #3")) {
 					JOptionPane.showMessageDialog(null,
-							"Q: Select all the moves that are Z-Moves from the following list:\nA: Twinkle Tackle, Let's Snuggle Forever, All Out Pummelling");
+							"Q: Select all the moves that are Z-Moves from the following list:\nYour Answer: "
+									+ ansList[9] + "\nA: Twinkle Tackle, Let's Snuggle Forever, All Out Pummelling");
 				}
 			} catch (NullPointerException x) {
 				JOptionPane.showMessageDialog(null, "Select a question to see the answer.");
